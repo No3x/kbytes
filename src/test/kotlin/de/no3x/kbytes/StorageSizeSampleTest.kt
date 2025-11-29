@@ -28,7 +28,7 @@ class StorageSizeSampleTest {
 
     @TestTemplate
     @WithLocale("de-DE", "en-US", "fr-FR", "ja-JP")
-    fun `toString works`() {
+    fun `toString works with different locales`() {
         val total = 2.MiB + 512.KiB - 256.KiB
         val expected = when (Locale.getDefault().toLanguageTag()) {
             "de-DE" -> "2,36 MB"
