@@ -8,7 +8,6 @@ Features
 - Inline `StorageSize` value type with arithmetic and comparisons.
 - Binary (`KiB`, `MiB`, …) and decimal (`KB`, `MB`, …) extensions on `Int`/`Long`.
 - Converters for byte counts and `Path` sizes (`toStorageSize()`).
-- JUnit 5 `@WithLocale` + `LocaleExtension` to repeat tests per locale.
 
 Gradle setup (JitPack)
 ----------------------
