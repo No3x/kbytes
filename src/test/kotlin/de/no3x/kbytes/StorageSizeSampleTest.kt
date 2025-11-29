@@ -1,8 +1,6 @@
 package de.no3x.kbytes
 
-import de.no3x.kbytes.support.junit.LocaleExtension
-import de.no3x.kbytes.support.junit.WithLocale
-import org.junit.jupiter.api.extension.ExtendWith
+import de.no3x.junit.extension.locale.WithLocale
 import org.junit.jupiter.api.TestTemplate
 import java.util.Locale
 import kotlin.test.Test
@@ -12,7 +10,6 @@ import kotlin.test.assertTrue
 /**
  * Usage-style tests that also double as executable documentation for the tiny DSL.
  */
-@ExtendWith(LocaleExtension::class)
 class StorageSizeSampleTest {
 
     @Test

@@ -7,11 +7,8 @@ plugins {
 group = "de.no3x"
 version = "1.0.0"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
+    testImplementation("com.github.No3x:junit-locale-extension:1.0.0")
     testImplementation(kotlin("test"))
 }
 
