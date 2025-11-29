@@ -23,7 +23,7 @@ dependencies {
     implementation("com.github.No3x:kbytes:1.0.0")
 }
 ```
-Replace `No3x` with the GitHub owner of your repository and `1.0.0` with the tag/commit you publish.
+Replace `1.0.0` with the tag you want.
 
 Usage
 -----
