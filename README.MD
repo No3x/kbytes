@@ -1,7 +1,7 @@
 kbytes
 ======
 
-Tiny, fluent Kotlin DSL for working with byte counts using binary (IEC) and decimal units. Includes JUnit 5 helpers for locale-sensitive formatting tests.
+Tiny, fluent Kotlin DSL for working with byte counts using binary (IEC) and decimal units.
 
 Features
 --------
@@ -29,7 +29,7 @@ Usage
 -----
 ```kotlin
 val size = 3.GB + 512.MB          // arithmetic
-println(size.bestDecimalUnit())   // Sized(value=3.51, unit=GB)
+println(size.bestDecimalUnit())   // Sized(value=3.512, unit=GB)
 
 val fileSize = somePath.toStorageSize()
 println(fileSize.inBytes())
