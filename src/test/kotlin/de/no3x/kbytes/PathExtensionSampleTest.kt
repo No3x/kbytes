@@ -1,10 +1,11 @@
 package de.no3x.kbytes
 
+import assertk.assertThat
+import assertk.assertions.isGreaterThan
+import assertk.assertions.isNotNull
+import org.junit.jupiter.api.Test
 import java.nio.file.Path
 import kotlin.io.path.writeText
-import kotlin.test.Test
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 import org.junit.jupiter.api.io.TempDir
 
 /**
@@ -19,10 +20,10 @@ class PathExtensionSampleTest {
 
         val storageSize = tempFile.toStorageSize()
 
-        assertTrue(storageSize.inBytes() > 0)
-        assertTrue(storageSize > 0.KiB)
-        assertNotNull(storageSize.bestBinaryUnit())
-        assertNotNull(storageSize.bestDecimalUnit())
+        assertThat(storageSize.inBytes()).isGreaterThan(0)
+        assertThat(storageSize).isGreaterThan(0.KiB)
+        assertThat(storageSize.bestBinaryUnit()).isNotNull()
+        assertThat(storageSize.bestDecimalUnit()).isNotNull()
     }
 
 }

@@ -1,11 +1,12 @@
 package de.no3x.kbytes
 
+import assertk.assertThat
+import assertk.assertions.isCloseTo
+import assertk.assertions.isEqualTo
 import de.no3x.junit.extension.locale.WithLocale
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestTemplate
-import java.util.Locale
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import java.util.*
 
 /**
  * Usage-style tests that also double as executable documentation for the tiny DSL.
@@ -14,16 +15,33 @@ class StorageSizeSampleTest {
 
     @Test
     fun `dsl extensions create expected byte counts`() {
-        assertEquals(1_024L, 1.KiB.inBytes())
-        assertEquals(1_000_000L, 1L.MB.inBytes())
-        assertEquals(3_000_000_000L, (3.GB).inBytes())
+        assertThat(1.KiB.inBytes()).isEqualTo(1_024L);
+        assertThat(1L.MB.inBytes()).isEqualTo(1_000_000L);
+        assertThat(3.GB.inBytes()).isEqualTo(3_000_000_000L);
     }
 
     @Test
     fun `arithmetic with storage sizes keeps byte precision`() {
         val total = 2.MiB + 512.KiB - 256.KiB
         val expectedBytes = (2L shl 20) + (512L shl 10) - (256L shl 10)
-        assertEquals(expectedBytes, total.inBytes())
+        assertThat(total.inBytes()).isEqualTo(expectedBytes)
+    }
+
+    @Test
+    fun `test inBytes`() {
+        assertThat(1.KB.inBytes()).isEqualTo(1_000)
+        assertThat(1.MB.inBytes()).isEqualTo(1_000_000)
+        assertThat(1.GB.inBytes()).isEqualTo(1_000_000_000)
+        assertThat(1.TB.inBytes()).isEqualTo(1_000_000_000_000)
+        assertThat(1.PB.inBytes()).isEqualTo(1_000_000_000_000_000)
+        assertThat(1.EB.inBytes()).isEqualTo(1_000_000_000_000_000_000)
+
+        assertThat(1.KiB.inBytes()).isEqualTo(1024)
+        assertThat(1.MiB.inBytes()).isEqualTo(1048576)
+        assertThat(1.GiB.inBytes()).isEqualTo(1073741824)
+        assertThat(1.TiB.inBytes()).isEqualTo(1099511627776)
+        assertThat(1.PiB.inBytes()).isEqualTo(1125899906842624)
+        assertThat(1.EiB.inBytes()).isEqualTo(1152921504606846976)
     }
 
     @TestTemplate
@@ -36,18 +54,18 @@ class StorageSizeSampleTest {
             "ja-JP" -> "2.36 MB"
             else -> "2.36 MB" // en-US and fallback
         }
-        assertEquals(expected, total.toString())
+        assertThat(total.toString()).isEqualTo(expected)
     }
 
     @Test
     fun `best unit picks the largest readable unit`() {
         val oneAndHalfKiB = StorageSize.ofBytes(1_536)
         val bestBinary = oneAndHalfKiB.bestBinaryUnit()
-        assertEquals(BinaryUnit.KIBIBYTE, bestBinary.unit)
-        assertTrue(bestBinary.value in 1.49..1.51, "value is roughly 1.5 KiB")
+        assertThat(bestBinary.unit).isEqualTo(BinaryUnit.KIBIBYTE)
+        assertThat(bestBinary.value).isCloseTo(1.50, 0.01)
         val twoPointThreeGb = 2_300_000_000L.toStorageSize()
         val bestDecimal = twoPointThreeGb.bestDecimalUnit()
-        assertEquals(DecimalUnit.GIGABYTE, bestDecimal.unit)
-        assertTrue(bestDecimal.value in 2.29..2.31, "value is roughly 2.30 GB")
+        assertThat(bestDecimal.unit).isEqualTo(DecimalUnit.GIGABYTE)
+        assertThat(bestDecimal.value).isCloseTo(2.30, 0.01)
     }
 }

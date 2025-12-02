@@ -18,7 +18,19 @@ enum class DecimalUnit(val symbol: String, val bytes: Long) {
     GIGABYTE("GB", 1_000_000_000L),
     TERABYTE("TB", 1_000_000_000_000L),
     PETABYTE("PB", 1_000_000_000_000_000L),
-    EXABYTE("EB", 1_000_000_000_000_000_000L),
+    EXABYTE("EB", 1_000_000_000_000_000_000L), ;
+}
+
+public fun BinaryUnit.nextLargerUnit(): BinaryUnit {
+    val values = enumValues<BinaryUnit>()
+    val nextOrdinal = (ordinal + 1)
+    return values[nextOrdinal]
+}
+
+public fun DecimalUnit.nextLargerUnit(): DecimalUnit {
+    val values = enumValues<DecimalUnit>()
+    val nextOrdinal = (ordinal + 1)
+    return values[nextOrdinal]
 }
 
 // convenience wrapper for "value + unit"
