@@ -11,10 +11,14 @@ Features
 
 Gradle setup (JitPack)
 ----------------------
-1) Add the JitPack repository:
+1) Add it in your settings.gradle.kts at the end of repositories:
 ```kotlin
-repositories {
-    maven { url = uri("https://jitpack.io") }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
 }
 ```
 2) Depend on your GitHub fork/tag:
